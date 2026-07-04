@@ -6,12 +6,12 @@ AI-generated projects spanning 15 languages across blockchain, cryptography, net
 | 2 | [dex-orderbook](https://github.com/pavel-genai/dex-orderbook) | OCaml | 💱 Order book matching engine with partial fills |
 | 3 | [distributed-kvstore](https://github.com/pavel-genai/distributed-kvstore) | Elixir | 🗄️ Distributed KV store with consistent hashing and CRDTs |
 | 4 | [dns-resolver](https://github.com/pavel-genai/dns-resolver) | Go | 🌐 Recursive DNS resolver with caching and DNSSEC |
-| 5 | [event-sourcing-engine](https://github.com/pavel-genai/event-sourcing-engine) | C# | 📜 Event sourcing framework with snapshots and projections |
-| 6 | [game-of-life](https://github.com/pavel-genai/game-of-life) | C# | 🧬 Conway's Game of Life with infinite grid and Blazor UI |
+| 5 | [event-sourcing-engine](https://github.com/pavel-genai/event-sourcing-engine) | Clojure | 📜 Event sourcing framework with snapshots and projections |
+| 6 | [game-of-life](https://github.com/pavel-genai/game-of-life) | Clojure | 🧬 Conway's Game of Life with infinite grid and set-based cells |
 | 7 | [hash-benchmark-suite](https://github.com/pavel-genai/hash-benchmark-suite) | Ruby | ⚡ Crypto hash benchmarks: SHA-256, Blake2, Keccak, Poseidon |
-| 8 | [hd-wallet-derive](https://github.com/pavel-genai/hd-wallet-derive) | C++ | 🔑 BIP-32/BIP-44 HD wallet key derivation tool |
+| 8 | [hd-wallet-derive](https://github.com/pavel-genai/hd-wallet-derive) | C | 🔑 BIP-32/BIP-44 HD wallet key derivation tool |
 | 9 | [job-scheduler](https://github.com/pavel-genai/job-scheduler) | Elixir | ⏰ Distributed job scheduler with DAG deps and cron |
-| 10 | [lz-compressor](https://github.com/pavel-genai/lz-compressor) | C++ | 🗜️ LZ77, Huffman, and DEFLATE compression library |
+| 10 | [lz-compressor](https://github.com/pavel-genai/lz-compressor) | C | 🗜️ LZ77, Huffman, and DEFLATE compression library |
 | 11 | [markdown-cms](https://github.com/pavel-genai/markdown-cms) | TypeScript | 📝 Flat-file CMS with Markdown, search, and live preview |
 | 12 | [merkle-tree-lib](https://github.com/pavel-genai/merkle-tree-lib) | Rust | 🌳 Merkle tree with sparse support and proof verification |
 | 13 | [neural-net](https://github.com/pavel-genai/neural-net) | Python | 🧠 Neural network from scratch with backprop and MNIST |
