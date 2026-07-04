@@ -1,5 +1,3 @@
-# pavel-genai
-
 AI-generated blockchain and cryptography projects spanning 15 languages.
 
 | # | Project | Language | Description |
