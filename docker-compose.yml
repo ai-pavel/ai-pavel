@@ -73,6 +73,60 @@ services:
       retries: 3
       start_period: 15s
 
+  tx-mempool-simulator:
+    build: ../tx-mempool-simulator
+    ports:
+      - "8545:8545"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8545/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  markdown-cms:
+    build: ../markdown-cms
+    ports:
+      - "3000:3000"
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c 'exec 3<>/dev/tcp/127.0.0.1/3000 && printf \"GET /health HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n\" >&3 && grep -q \"200\" <&3'"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+  pdf-generator:
+    build: ../pdf-generator
+    ports:
+      - "8084:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c 'exec 3<>/dev/tcp/127.0.0.1/8080 && printf \"GET /health HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n\" >&3 && grep -q \"200\" <&3'"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+  sql-parser:
+    build: ../sql-parser
+    ports:
+      - "8085:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c 'exec 3<>/dev/tcp/127.0.0.1/8080 && printf \"GET /health HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n\" >&3 && grep -q \"200\" <&3'"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+  stream-processor:
+    build: ../stream-processor
+    ports:
+      - "8086:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c 'exec 3<>/dev/tcp/127.0.0.1/8080 && printf \"GET /health HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n\" >&3 && grep -q \"200\" <&3'"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 90s
+
   # Health dashboard: http://localhost:8090
   dashboard:
     image: twinproduction/gatus:latest

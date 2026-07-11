@@ -51,6 +51,46 @@ endpoints:
       - "[STATUS] == 200"
       - "[BODY].status == ok"
 
+  - name: tx-mempool-simulator
+    group: services
+    url: "http://tx-mempool-simulator:8545/health"
+    interval: 30s
+    conditions:
+      - "[STATUS] == 200"
+      - "[BODY].status == ok"
+
+  - name: markdown-cms
+    group: services
+    url: "http://markdown-cms:3000/health"
+    interval: 30s
+    conditions:
+      - "[STATUS] == 200"
+      - "[BODY].status == ok"
+
+  - name: pdf-generator
+    group: services
+    url: "http://pdf-generator:8080/health"
+    interval: 30s
+    conditions:
+      - "[STATUS] == 200"
+      - "[BODY].status == ok"
+
+  - name: sql-parser
+    group: services
+    url: "http://sql-parser:8080/health"
+    interval: 30s
+    conditions:
+      - "[STATUS] == 200"
+      - "[BODY].status == ok"
+
+  - name: stream-processor
+    group: services
+    url: "http://stream-processor:8080/health"
+    interval: 30s
+    conditions:
+      - "[STATUS] == 200"
+      - "[BODY].status == ok"
+
   - name: redis
     group: infrastructure
     url: "tcp://redis:6379"
