@@ -13,10 +13,19 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=default
 
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
   rate-limiter-service:
     build: ../rate-limiter-service
     ports:
       - "50051:50051"
+    environment:
+      - REDIS_HOST=redis
+    depends_on:
+      - redis
 
   job-scheduler:
     build: ../job-scheduler
@@ -28,18 +37,22 @@ services:
     ports:
       - "4001:4000"
 
+  # One-shot CLI, not a daemon: run on demand with
+  #   docker compose run --rm dns-resolver <domain>
   dns-resolver:
     build: ../dns-resolver
-    ports:
-      - "53:53/udp"
-      - "53:53/tcp"
+    profiles: ["tools"]
 
   p2p-gossip-protocol:
     build: ../p2p-gossip-protocol
+    command: ["--port", "7946"]
     ports:
       - "7946:7946/udp"
 
+  # Interactive REPL, not a daemon: run on demand with
+  #   docker compose run --rm raft-consensus
   raft-consensus:
     build: ../raft-consensus
+    profiles: ["tools"]
     stdin_open: true
     tty: true
