@@ -1,0 +1,24 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  validate-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate README structure
+        run: |
+          if [ ! -f README.md ]; then
+            echo "README.md not found"
+            exit 1
+          fi
+          # Ensure table header exists
+          grep -q "| Project | Status | Coverage | Description |" README.md
+          # Ensure at least 20 project rows
+          rows=$(grep -c '^\| \[' README.md)
+          if [ "$rows" -lt 20 ]; then
+            echo "Expected at least 20 project rows, found $rows"
+            exit 1
+          fi
+          echo "README validation passed: $rows project rows found"
