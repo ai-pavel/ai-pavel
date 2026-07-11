@@ -18,28 +18,28 @@ services:
     ports:
       - "50051:50051"
 
-  # job-scheduler:
-  #   build: ../job-scheduler
-  #   ports:
-  #     - "4000:4000"
+  job-scheduler:
+    build: ../job-scheduler
+    ports:
+      - "4000:4000"
 
-  # distributed-kvstore:
-  #   build: ../distributed-kvstore
-  #   ports:
-  #     - "4001:4000"
+  distributed-kvstore:
+    build: ../distributed-kvstore
+    ports:
+      - "4001:4000"
 
-  # dns-resolver:
-  #   build: ../dns-resolver
-  #   ports:
-  #     - "53:53/udp"
-  #     - "53:53/tcp"
+  dns-resolver:
+    build: ../dns-resolver
+    ports:
+      - "53:53/udp"
+      - "53:53/tcp"
 
-  # p2p-gossip-protocol:
-  #   build: ../p2p-gossip-protocol
-  #   ports:
-  #     - "7946:7946/udp"
+  p2p-gossip-protocol:
+    build: ../p2p-gossip-protocol
+    ports:
+      - "7946:7946/udp"
 
-  # raft-consensus:
-  #   build: ../raft-consensus
-  #   stdin_open: true
-  #   tty: true
+  raft-consensus:
+    build: ../raft-consensus
+    stdin_open: true
+    tty: true
