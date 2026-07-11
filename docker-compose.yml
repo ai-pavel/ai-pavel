@@ -73,6 +73,19 @@ services:
       retries: 3
       start_period: 15s
 
+  # Health dashboard: http://localhost:8090
+  dashboard:
+    image: twinproduction/gatus:latest
+    ports:
+      - "8090:8080"
+    volumes:
+      - ./gatus.yaml:/config/config.yaml:ro
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8080/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
   # One-shot CLI, not a daemon: run on demand with
   #   docker compose run --rm dns-resolver <domain>
   dns-resolver:

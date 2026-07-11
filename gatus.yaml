@@ -1,0 +1,59 @@
+ui:
+  title: ai-pavel services
+  header: ai-pavel services
+
+endpoints:
+  - name: search-engine
+    group: services
+    url: "http://search-engine:8080/health"
+    interval: 30s
+    conditions:
+      - "[STATUS] == 200"
+      - "[BODY].status == ok"
+
+  - name: block-indexer
+    group: services
+    url: "http://block-indexer:8080/health"
+    interval: 30s
+    conditions:
+      - "[STATUS] == 200"
+      - "[BODY].status == ok"
+
+  - name: rate-limiter-service
+    group: services
+    url: "http://rate-limiter-service:8080/health"
+    interval: 30s
+    conditions:
+      - "[STATUS] == 200"
+      - "[BODY].status == ok"
+
+  - name: job-scheduler
+    group: services
+    url: "http://job-scheduler:4000/health"
+    interval: 30s
+    conditions:
+      - "[STATUS] == 200"
+      - "[BODY].status == ok"
+
+  - name: distributed-kvstore
+    group: services
+    url: "http://distributed-kvstore:4000/health"
+    interval: 30s
+    conditions:
+      - "[STATUS] == 200"
+      - "[BODY].status == ok"
+
+  - name: p2p-gossip-protocol
+    group: services
+    url: "http://p2p-gossip-protocol:8080/health"
+    interval: 30s
+    conditions:
+      - "[STATUS] == 200"
+      - "[BODY].status == ok"
+
+  - name: redis
+    group: infrastructure
+    url: "tcp://redis:6379"
+    interval: 30s
+    conditions:
+      - "[CONNECTED] == true"
