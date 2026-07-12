@@ -14,6 +14,7 @@
 #   make up-<svc>      start one service:            `make up-kv`, `make up-cms`
 #   make logs-<svc>    tail logs for one service:    `make logs-search
 #   make test-<svc>    run one service's test suite: `make test-mempool`
+#   make redis-cli     redis-cli into the shared redis container
 
 COMPOSE := docker compose
 
@@ -56,6 +57,9 @@ test:
 	hurl --test --report-html reports tests/*/*.hurl
 
 # One-shot / interactive tools
+redis-cli:
+	docker compose exec redis redis-cli
+
 dns-resolver:
 	$(COMPOSE) run --rm dns-resolver $(ARGS)
 
