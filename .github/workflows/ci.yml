@@ -1,11 +1,22 @@
+---
 name: CI
 
+# yamllint disable-line rule:truthy
 on: [push, pull_request]
 
 env:
   HURL_VERSION: 8.0.1
 
 jobs:
+  checkmake:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install checkmake
+        run: go install github.com/checkmake/checkmake/cmd/checkmake@latest
+      - name: Lint Makefile
+        run: "$(go env GOPATH)/bin/checkmake Makefile"
+
   hurlfmt:
     runs-on: ubuntu-latest
     steps:
@@ -23,3 +34,12 @@ jobs:
             exit 1
           fi
           echo "$files" | xargs hurlfmt --check
+
+  yamllint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install yamllint
+        run: pipx install yamllint
+      - name: Lint YAML files
+        run: yamllint --strict --no-warnings .
