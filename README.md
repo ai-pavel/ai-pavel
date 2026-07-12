@@ -1,5 +1,7 @@
 ## Brief
 
+[![CI](https://github.com/ai-pavel/ai-pavel/actions/workflows/ci.yml/badge.svg)](https://github.com/ai-pavel/ai-pavel/actions/workflows/ci.yml)
+
 List of AI-generated projects spanning 15 languages across blockchain, cryptography, networking, graphics, ML, and more.
 
 - ☝🏻 See also [ai-crypto-onramp](https://github.com/ai-crypto-onramp) - end-to-end microservices architecture for fiat-to-crypto conversion stack.

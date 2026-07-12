@@ -2,24 +2,24 @@ name: CI
 
 on: [push, pull_request]
 
+env:
+  HURL_VERSION: 8.0.1
+
 jobs:
-  validate-readme:
+  hurlfmt:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validate README structure
+      - name: Install hurl
         run: |
-          if [ ! -f README.md ]; then
-            echo "README.md not found"
+          curl -sSL -o /tmp/hurl.deb \
+            "https://github.com/Orange-OpenSource/hurl/releases/download/${HURL_VERSION}/hurl_${HURL_VERSION}_amd64.deb"
+          sudo dpkg -i /tmp/hurl.deb
+      - name: Check hurl files formatting
+        run: |
+          files=$(find tests -name '*.hurl')
+          if [ -z "$files" ]; then
+            echo "No .hurl files found"
             exit 1
           fi
-          # Ensure table header exists
-          grep -q "| Project | Lang | Status | Coverage |" README.md
-          # Ensure at least 20 project rows (rows may carry an emoji prefix
-          # before the project link)
-          rows=$(grep -cE '^\|.*\]\(https://github\.com/ai-pavel/' README.md || true)
-          if [ "$rows" -lt 20 ]; then
-            echo "Expected at least 20 project rows, found $rows"
-            exit 1
-          fi
-          echo "README validation passed: $rows project rows found"
+          echo "$files" | xargs hurlfmt --check
