@@ -14,9 +14,10 @@ jobs:
             exit 1
           fi
           # Ensure table header exists
-          grep -q "| Project | Lang | Status | Coverage | Description |" README.md
-          # Ensure at least 20 project rows
-          rows=$(grep -c '^\| \[' README.md)
+          grep -q "| Project | Lang | Status | Coverage |" README.md
+          # Ensure at least 20 project rows (rows may carry an emoji prefix
+          # before the project link)
+          rows=$(grep -cE '^\|.*\]\(https://github\.com/ai-pavel/' README.md || true)
           if [ "$rows" -lt 20 ]; then
             echo "Expected at least 20 project rows, found $rows"
             exit 1
