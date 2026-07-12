@@ -17,10 +17,13 @@
 #   make redis-cli     redis-cli into the shared redis container
 
 COMPOSE := docker compose
+REPORTS := reports
 
-.PHONY: up down restart ps logs build rebuild pull test dashboard dns-resolver raft-consensus
+.PHONY: all clean up down restart ps logs build rebuild pull test dashboard dns-resolver raft-consensus
 
 # Default target: start the whole stack
+all: up
+
 up:
 	$(COMPOSE) up -d
 
@@ -52,13 +55,15 @@ dashboard:
 # Integration tests (Hurl suites in tests/, one directory per service).
 # Writes an HTML report to reports/ (view with: open reports/index.html).
 # The directory is wiped first so the report always reflects the latest run.
-test:
-	rm -rf reports
-	hurl --test --report-html reports tests/*/*.hurl
+clean:
+	rm -rf $(REPORTS)
+
+test: clean
+	hurl --test --report-html $(REPORTS) tests/*/*.hurl
 
 # One-shot / interactive tools
 redis-cli:
-	docker compose exec redis redis-cli
+	$(COMPOSE) exec redis redis-cli
 
 dns-resolver:
 	$(COMPOSE) run --rm dns-resolver $(ARGS)
