@@ -1,30 +1,48 @@
-.PHONY: up down restart ps logs build rebuild pull logs-follow test dashboard \
-        dns-resolver raft-consensus
+# Makefile — docker compose aliases for the local dev stack.
+#
+# Usage:
+#   make up            bring the full stack up (detached)
+#   make down          stop and remove containers
+#   make restart       restart all services
+#   make ps            list running services
+#   make logs          tail logs for all services
+#   make build         (re)build all service images
+#   make rebuild       rebuild all service images without cache
+#   make pull          pull base images
+#   make dashboard     open the Gatus health dashboard in the browser
+#   make test          run all Hurl integration suites (HTML report in `reports/`)
+#   make up-<svc>      start one service:            `make up-kv`, `make up-cms`
+#   make logs-<svc>    tail logs for one service:    `make logs-search
+#   make test-<svc>    run one service's test suite: `make test-mempool`
+
+COMPOSE := docker compose
+
+.PHONY: up down restart ps logs build rebuild pull test dashboard dns-resolver raft-consensus
 
 # Default target: start the whole stack
 up:
-	docker compose up -d
+	$(COMPOSE) up -d
 
 down:
-	docker compose down
+	$(COMPOSE) down
 
 restart:
-	docker compose restart
+	$(COMPOSE) restart
 
 ps:
-	docker compose ps
+	$(COMPOSE) ps
 
 build:
-	docker compose build
+	$(COMPOSE) build
 
 rebuild:
-	docker compose build --no-cache
+	$(COMPOSE) build --no-cache
 
 pull:
-	docker compose pull
+	$(COMPOSE) pull
 
 logs:
-	docker compose logs -f --tail=100
+	$(COMPOSE) logs -f --tail=200
 
 # Open the Gatus health dashboard in the browser
 dashboard:
@@ -39,10 +57,10 @@ test:
 
 # One-shot / interactive tools
 dns-resolver:
-	docker compose run --rm dns-resolver $(ARGS)
+	$(COMPOSE) run --rm dns-resolver $(ARGS)
 
 raft-consensus:
-	docker compose run --rm raft-consensus
+	$(COMPOSE) run --rm raft-consensus
 
 # Short aliases for service names, used by the up-%, logs-% and test-% patterns.
 # Services without an alias (redis, dashboard) are addressed by full name.
@@ -60,11 +78,11 @@ gossip    := p2p-gossip-protocol
 
 # Start an individual service: make up-<alias|service>, e.g. make up-cms
 up-%:
-	docker compose up -d $(or $($*),$*)
+	$(COMPOSE) up -d $(or $($*),$*)
 
 # Tail logs for an individual service: make logs-<alias|service>
 logs-%:
-	docker compose logs -f --tail=100 $(or $($*),$*)
+	$(COMPOSE) logs -f --tail=100 $(or $($*),$*)
 
 # Run one service's integration test suite: make test-<alias|service>,
 # e.g. make test-sql or make test-sql-parser
