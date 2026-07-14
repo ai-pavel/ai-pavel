@@ -1,5 +1,3 @@
-## Build Status
-
 | Project | Lang | Status | Coverage | Description |
 |---------|------|--------|----------|-------------|
 | ⏱️ [pacer](https://github.com/ai-pavel/pacer) | Kotlin | [![CI](https://github.com/ai-pavel/pacer/actions/workflows/ci.yml/badge.svg)](https://github.com/ai-pavel/pacer/actions/workflows/ci.yml) | [![codecov](https://codecov.io/gh/ai-pavel/pacer/branch/main/graph/badge.svg)](https://codecov.io/gh/ai-pavel/pacer) | gRPC rate limiter with token bucket and sliding window |
